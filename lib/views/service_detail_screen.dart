@@ -559,8 +559,7 @@ class _ServicesDetailScreenState extends State<ServicesDetailScreen> {
                             child: ElevatedButton(
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
-                                primary: const Color(
-                                    0xFF877FFA), // Your desired color
+                                primary: TealCustomColor, // Your desired color
                                 shape: ContinuousRectangleBorder(
                                   borderRadius: BorderRadius.circular(40),
                                 ),

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:pgc/constants/color_const.dart';
 import 'package:pgc/constants/const.dart';
 import 'package:pgc/constants/helper_class.dart';
 import 'package:pgc/constants/text_const.dart';
@@ -161,7 +162,33 @@ class _NewDonationCampaignScreenState extends State<NewDonationCampaignScreen> {
               children: [
                 TextFormField(
                   controller: _patientNameController,
-                  decoration: InputDecoration(labelText: 'Patient Name'),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.blue.shade50,
+                    labelStyle: kSmallParaTextStyle,
+                    labelText: 'Patient Name',
+                    border: InputBorder.none, // Remove the border
+                    // errorText: _patientNameError ? 'Please enter patient name' : null,
+                    // errorStyle: kSmallParaTextStyle.copyWith(color: Colors.red, fontSize: 12),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: softGrayStrokeCustomColor, width: 2),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: softGrayStrokeCustomColor, width: 2),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red, width: 2),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter patient name';

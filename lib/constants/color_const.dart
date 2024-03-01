@@ -9,3 +9,5 @@ Color primaryBlueSoftenCustomColor =
 Color softWhiteCustomColor = const Color(0xFFF8F8F8);
 Color TealLightCustomColor = const Color(0xFFC3E1E0);
 Color TealDarkCustomColor = const Color(0xFF128983);
+Color TealCustomColor = const Color(0xFF2ED1C8);
+Color TealThemeCustomColor = const Color(0xFF149DA1);

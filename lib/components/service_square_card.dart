@@ -35,7 +35,7 @@ class ServiceSquareCard extends StatelessWidget {
         ),
         elevation: 0,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 18.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 18.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

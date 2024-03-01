@@ -8,6 +8,8 @@ import 'package:pgc/constants/color_const.dart';
 import 'package:pgc/firebase_options.dart';
 import 'package:pgc/views/all_services_screen.dart';
 import 'package:pgc/views/dashboard_screen.dart';
+import 'package:pgc/views/donation_detail_screen.dart';
+import 'package:pgc/views/donation_screen.dart';
 import 'package:pgc/views/home_screen.dart';
 import 'package:pgc/views/service_detail_screen.dart';
 import 'package:pgc/views/signin_screen.dart';
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: primaryBlueCustomColor),
         useMaterial3: true,
       ),
-      home: NewDonationCampaignScreen(),
+      home: HomeScreen(),
     );
   }
 }

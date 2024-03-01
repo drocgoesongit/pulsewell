@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pgc/admin_views/add_new_doctor_screen_admin.dart';
 import 'package:pgc/admin_views/all_appointments_screen.dart';
 import 'package:pgc/admin_views/customer_detail_screen.dart';
+import 'package:pgc/admin_views/new_donation_campaign_screen.dart';
 import 'package:pgc/components/appointment_rectangle_card.dart';
 import 'package:pgc/components/home_screen_static_section.dart';
 import 'package:pgc/components/review_card.dart';
@@ -18,6 +20,7 @@ import 'package:pgc/viewmodels/chat_viewmodel.dart';
 import 'package:pgc/views/all_services_screen.dart';
 import 'package:pgc/views/dashboard_screen.dart';
 import 'package:pgc/views/chat_screen.dart';
+import 'package:pgc/views/donation_screen.dart';
 import 'package:pgc/views/profile_screen.dart';
 import 'package:pgc/views/signin_screen.dart';
 
@@ -75,9 +78,87 @@ class _HomeScreenState extends State<HomeScreen> {
         key: _scaffoldKey, // Set the key for the Scaffold
 
         drawer: NavigationDrawer(
+          tilePadding: EdgeInsets.all(MediaQuery.of(context).size.width / 10),
           children: [
             ListTile(
-              title: Text('Option 1'),
+              leading: Container(
+                  height: 25,
+                  width: 25,
+                  child: SvgPicture.asset('assets/images/logo.svg')),
+              title: Text(
+                'Pulse Well',
+                style: kMainTitleBoldTextStyle.copyWith(fontSize: 18),
+              ),
+              onTap: () {
+                // Handle drawer item tap
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.bar_chart_rounded,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Appointments',
+                style: kSubHeadingTextStyle,
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Dashboard()));
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.monitor_heart_outlined,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Donations',
+                style: kSubHeadingTextStyle,
+              ),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => DonationScreen()));
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.add_circle_outline_rounded,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Add Donations',
+                style: kSubHeadingTextStyle,
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NewDonationCampaignScreen()));
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.chat_outlined,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Chats',
+                style: kSubHeadingTextStyle,
+              ),
+              onTap: () {
+                // Handle drawer item tap
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout_rounded,
+                color: Colors.black,
+              ),
+              title: Text(
+                'Log out',
+                style: kSubHeadingTextStyle,
+              ),
               onTap: () {
                 // Handle drawer item tap
               },
@@ -100,12 +181,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         EdgeInsets.all(MediaQuery.of(context).size.width / 20),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: primaryBlueCustomColor,
+                      color: TealThemeCustomColor,
                     ),
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 20,
+                          height: 14,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -122,123 +203,112 @@ class _HomeScreenState extends State<HomeScreen> {
                                 SizedBox(
                                   width: MediaQuery.of(context).size.width / 18,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Dashboard()));
-                                  },
-                                  child: Text(
-                                    "Paws and Claws",
-                                    style: kSmallParaTextStyle.copyWith(
-                                        color: Colors.white),
-                                  ),
+                                Text(
+                                  "Pulse Well",
+                                  style: kSmallParaTextStyle.copyWith(
+                                      color: Colors.white),
                                 ),
                               ],
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => ProfileScreen()));
-                              },
-                              child: Container(
-                                child: Image.asset("assets/images/profile.png"),
-                                decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(15.46))),
-                              ),
                             ),
                           ],
                         ),
-                        // SizedBox(
-                        //   height: MediaQuery.of(context).size.height / 100,
-                        // ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 40,
+                        ),
                         Stack(
                           alignment: Alignment.bottomCenter,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                GestureDetector(
-                                  onTap: () async {
-                                    if (FirebaseAuth.instance.currentUser !=
-                                        null) {
-                                      showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              content: Center(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                color: primaryBlueCustomColor,
-                                                strokeWidth: 2.0,
-                                              )),
-                                            );
-                                          });
-                                      String userId = FirebaseAuth
-                                          .instance.currentUser!.uid;
-                                      String isChatAvailable =
-                                          await ChatViewModel().getChat();
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 20.0), // Add some bottom padding
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () async {
+                                        if (FirebaseAuth.instance.currentUser !=
+                                            null) {
+                                          showDialog(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  content: Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                    color: TealThemeCustomColor,
+                                                    strokeWidth: 2.0,
+                                                  )),
+                                                );
+                                              });
+                                          String userId = FirebaseAuth
+                                              .instance.currentUser!.uid;
+                                          String isChatAvailable =
+                                              await ChatViewModel().getChat();
 
-                                      if (isChatAvailable == 'success') {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ChatDetailScreen(
-                                                      chatPlusUserId: userId,
-                                                    )));
-                                      } else {
-                                        Navigator.pop(context);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                                'Error: Chat not available'),
-                                          ),
-                                        );
-                                      }
-                                    } else {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                                title: const Text("Error"),
-                                                content: const Text(
-                                                    "You need to be logged in to access this feature."),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const LoginScreen()));
-                                                    },
-                                                    child: Text("OK"),
-                                                  )
-                                                ],
-                                              ));
-                                    }
-                                  },
-                                  child: Text(
-                                    "Elevate Your\nPet Style!",
-                                    style: kMainTitleBoldTextStyle.copyWith(
-                                        color: Colors.white),
-                                  ),
+                                          if (isChatAvailable == 'success') {
+                                            Navigator.pop(context);
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ChatDetailScreen(
+                                                          chatPlusUserId:
+                                                              userId,
+                                                        )));
+                                          } else {
+                                            Navigator.pop(context);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'Error: Chat not available'),
+                                              ),
+                                            );
+                                          }
+                                        } else {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                    title: const Text("Error"),
+                                                    content: const Text(
+                                                        "You need to be logged in to access this feature."),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          const LoginScreen()));
+                                                        },
+                                                        child: Text("OK"),
+                                                      )
+                                                    ],
+                                                  ));
+                                        }
+                                      },
+                                      child: Text(
+                                        "Your heart's\nBestfriend!",
+                                        style: kMainTitleBoldTextStyle.copyWith(
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Container(
+                                        child: SvgPicture.asset(
+                                            "assets/images/docbro2.svg"),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Center(
-                                  child: Container(
-                                    child: Image.asset(
-                                        "assets/images/dogflyer.png"),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                             Container(
                               height: 50,
@@ -252,8 +322,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                               const ServicesListScreen()));
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  primary: const Color(
-                                      0xFF877FFA), // Your desired color
+                                  primary:
+                                      TealCustomColor, // Your desired color
                                   shape: ContinuousRectangleBorder(
                                     borderRadius: BorderRadius.circular(40),
                                   ),
@@ -283,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Services",
+                          "Doctors",
                           style: kSubHeadingTextStyle,
                         ),
                         GestureDetector(
