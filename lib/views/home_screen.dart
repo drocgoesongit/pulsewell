@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pgc/admin_views/add_new_service_screen.dart';
+import 'package:pgc/admin_views/add_new_doctor_screen_admin.dart';
 import 'package:pgc/admin_views/all_appointments_screen.dart';
 import 'package:pgc/admin_views/customer_detail_screen.dart';
 import 'package:pgc/components/appointment_rectangle_card.dart';
@@ -29,21 +29,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<DoctorModel> services = [];
+  List<DoctorModel> doctorsList = [];
   List<AppointmentModel> appointments = [];
 
   Future<List<DoctorModel>> getServices() async {
     final servicesSnapshot = await FirebaseFirestore.instance
-        .collection(Constants.fcServicesNode)
+        .collection(Constants.fcDoctorNode)
         .get();
     int count = servicesSnapshot.docs.length;
     servicesSnapshot.docs.forEach((service) {
-      if (services.length < count) {
-        services.add(DoctorModel.fromJson(service.data()));
+      if (doctorsList.length < count) {
+        doctorsList.add(DoctorModel.fromJson(service.data()));
       }
     });
 
-    return services;
+    return doctorsList;
   }
 
   Future<List<AppointmentModel>> getUpcomingAppointmentForUser() async {
@@ -103,7 +103,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               GestureDetector(
                                   onTap: () {
-                                    // bring on navigagtion drawer
+                                    Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) {
+                                        return AddNewDoctorScreen();
+                                      },
+                                    ));
                                   },
                                   child:
                                       Image.asset("assets/images/filter.png")),
@@ -316,10 +320,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: services.length,
+                          itemCount: doctorsList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return ServiceSquareCard(
-                              model: services[index],
+                              model: doctorsList[index],
                             );
                           },
                         ),

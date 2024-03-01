@@ -1,6 +1,6 @@
 class Constants {
   static const String fcServicesNode = 'services';
-  static const String fcServicePhotosNode = 'servicePhotos';
+  static const String fcDoctorPhotos = 'doctorPhotos';
   static const String fcAvailability = 'availability';
   static const String fcDates = 'dates';
   static const String fcAppointments = 'appointments';

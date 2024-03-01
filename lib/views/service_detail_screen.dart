@@ -104,7 +104,7 @@ class _ServicesDetailScreenState extends State<ServicesDetailScreen> {
                     ),
                   ),
                   Text(
-                    "\$ ${widget.serviceModel..toString()}",
+                    "₹ ${widget.serviceModel.doctorFees.toString()}",
                     style: kMainTitleBoldTextStyle.copyWith(
                       color: Colors.black,
                     ),

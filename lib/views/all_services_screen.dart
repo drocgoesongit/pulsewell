@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pgc/components/service_rectangle_card.dart';
 import 'package:pgc/constants/color_const.dart';
+import 'package:pgc/constants/const.dart';
 import 'package:pgc/constants/text_const.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pgc/model/doctor_model.dart';
@@ -15,8 +16,9 @@ class ServicesListScreen extends StatefulWidget {
 class _ServicesListScreenState extends State<ServicesListScreen> {
   Future<List<DoctorModel>> _fetchServices() async {
     // Change Service to ServiceModel
-    final servicesSnapshot =
-        await FirebaseFirestore.instance.collection('services').get();
+    final servicesSnapshot = await FirebaseFirestore.instance
+        .collection(Constants.fcDoctorNode)
+        .get();
 
     List<DoctorModel> services = [];
 

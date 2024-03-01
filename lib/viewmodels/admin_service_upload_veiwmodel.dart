@@ -42,7 +42,7 @@ class AdminServiceViewModel {
         Uint8List file = _imageFilesWeb[i];
         String fileName = '${i + 1}.png';
         String storageRef =
-            '${Constants.fcServicePhotosNode}/$serviceName/$fileName';
+            '${Constants.fcDoctorPhotos}/$serviceName/$fileName';
         Reference ref = FirebaseStorage.instance.ref(storageRef);
         UploadTask uploadTask = ref.putData(file);
 
@@ -98,8 +98,7 @@ class AdminServiceViewModel {
     for (int i = 0; i < imagePaths.length; i++) {
       File imageFile = File(imagePaths[i]);
       String fileName = '${i + 1}.png';
-      String storageRef =
-          '${Constants.fcServicePhotosNode}/$serviceName/$fileName';
+      String storageRef = '${Constants.fcDoctorPhotos}/$serviceName/$fileName';
 
       // Upload image to Firebase Storage
       TaskSnapshot snapshot = await FirebaseStorage.instance
