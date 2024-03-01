@@ -7,7 +7,6 @@ class UserModel {
   int loginTimestamp;
   String chats;
   List<String> appointments;
-  List<String> pets;
 
   UserModel({
     required this.id,
@@ -18,7 +17,6 @@ class UserModel {
     required this.loginTimestamp,
     required this.chats,
     required this.appointments,
-    required this.pets,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -31,7 +29,6 @@ class UserModel {
       loginTimestamp: json['loginTimestamp'],
       chats: json['chats'],
       appointments: List<String>.from(json['appointments']),
-      pets: List<String>.from(json['pets']),
     );
   }
 
@@ -45,7 +42,6 @@ class UserModel {
       'loginTimestamp': loginTimestamp,
       'chats': chats,
       'appointments': appointments,
-      'pets': pets,
     };
   }
 }

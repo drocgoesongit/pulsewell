@@ -16,4 +16,5 @@ class Constants {
   static const String fcTimeStampChatNode = "lastMessageTimestamp";
 
   static const String fcDoctorNode = 'doctors';
+  static const String fcDonationCampaigns = 'donationCampaigns';
 }

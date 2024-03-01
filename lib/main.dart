@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pgc/admin_views/all_appointments_screen.dart';
 import 'package:pgc/admin_views/all_customers_screen.dart';
 import 'package:pgc/admin_views/appointment_detail.dart';
+import 'package:pgc/admin_views/new_donation_campaign_screen.dart';
 import 'package:pgc/constants/color_const.dart';
 import 'package:pgc/firebase_options.dart';
 import 'package:pgc/views/all_services_screen.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: primaryBlueCustomColor),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: NewDonationCampaignScreen(),
     );
   }
 }

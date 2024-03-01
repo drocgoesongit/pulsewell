@@ -34,11 +34,11 @@ class _AppointmentRescheduleScreenState
         selectedDate = HelperClass.getSameDayDate();
         avaialabilityModel = await SlotsStatusViewModel()
             .getOneHourAvailability(
-                widget.appointmentModel.serviceId, selectedDate);
+                widget.appointmentModel.doctorId, selectedDate);
       } else {
         avaialabilityModel = await SlotsStatusViewModel()
             .getOneHourAvailability(
-                widget.appointmentModel.serviceId, selectedDate);
+                widget.appointmentModel.doctorId, selectedDate);
       }
       return avaialabilityModel;
     } catch (e) {

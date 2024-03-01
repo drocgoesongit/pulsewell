@@ -282,14 +282,18 @@ class _ServicesDetailScreenState extends State<ServicesDetailScreen> {
                                                   String result =
                                                       await AppointmentViewModel()
                                                           .bookAppointment(
-                                                    widget.serviceId,
-                                                    selectedDate,
-                                                    singleSlotModel.hour,
-                                                    FirebaseAuth.instance
-                                                        .currentUser!.uid,
-                                                    "petId",
-                                                    selectedDate,
-                                                  );
+                                                              widget.serviceId,
+                                                              selectedDate,
+                                                              singleSlotModel
+                                                                  .hour,
+                                                              FirebaseAuth
+                                                                  .instance
+                                                                  .currentUser!
+                                                                  .uid,
+                                                              "petId",
+                                                              selectedDate,
+                                                              widget
+                                                                  .serviceModel);
 
                                                   if (result == "success") {
                                                     Navigator.pop(

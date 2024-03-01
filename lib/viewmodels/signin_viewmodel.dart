@@ -34,7 +34,6 @@ class SignInBackend {
           phone: "",
           chats: "",
           appointments: [],
-          pets: [],
           loginTimestamp: timeStamp,
           id: uid,
         );

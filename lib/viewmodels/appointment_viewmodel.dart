@@ -4,12 +4,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pgc/constants/const.dart';
 import 'package:pgc/constants/helper_class.dart';
 import 'package:pgc/model/appointment_model.dart';
+import 'package:pgc/model/doctor_model.dart';
 import 'package:pgc/model/user_model.dart';
 
 class AppointmentViewModel {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Future<String> bookAppointment(String serviceId, String date, String time,
-      String userId, String petId, String appointmentDate) async {
+  Future<String> bookAppointment(
+      String serviceId,
+      String date,
+      String time,
+      String userId,
+      String petId,
+      String appointmentDate,
+      DoctorModel doctorModel) async {
     try {
       String appointmentId =
           await _firestore.collection(Constants.fcAppointments).doc().id;
@@ -21,11 +28,12 @@ class AppointmentViewModel {
               UserModel.fromJson(value.data() as Map<String, dynamic>));
 
       AppointmentModel appointment = AppointmentModel(
-          serviceId: serviceId,
+          doctorId: serviceId,
           timeOfBooking: DateTime.now().millisecondsSinceEpoch,
           apptId: appointmentId,
           userId: userId,
           apptTime: time,
+          doctorName: doctorModel.doctorName,
           feesStatus: 'pending',
           apptDate: date,
           apptStatus: Constants.appointmentActive,
@@ -73,7 +81,7 @@ class AppointmentViewModel {
 
       await _firestore
           .collection(Constants.fcAvailability)
-          .doc(model.serviceId)
+          .doc(model.doctorId)
           .collection(Constants.fcDates)
           .doc(model.apptDate)
           .update({
@@ -96,7 +104,7 @@ class AppointmentViewModel {
     try {
       await _firestore
           .collection(Constants.fcAvailability)
-          .doc(prevAppointmentModel.serviceId)
+          .doc(prevAppointmentModel.doctorId)
           .collection(Constants.fcDates)
           .doc(prevAppointmentModel.apptDate)
           .update({
@@ -114,7 +122,7 @@ class AppointmentViewModel {
       });
       await _firestore
           .collection(Constants.fcAvailability)
-          .doc(prevAppointmentModel.serviceId)
+          .doc(prevAppointmentModel.doctorId)
           .collection(Constants.fcDates)
           .doc(newDate)
           .update({
