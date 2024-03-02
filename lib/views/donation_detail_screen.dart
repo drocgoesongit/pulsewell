@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pgc/components/donation_rectangle_card.dart';
 import 'package:pgc/constants/color_const.dart';
@@ -57,118 +58,136 @@ class _DonationDetailState extends State<DonationDetail> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Donations", style: kMainTitleBoldTextStyle),
-            Column(
-              children: [
-                Text(
-                    "Total fund raised: \$ ${widget.donationModel.totalFundRaised}",
-                    style: kSubHeadingTextStyle.copyWith(fontSize: 12)),
-                Text("Goal: \$ ${widget.donationModel.amountRequired}",
-                    style: kSubHeadingTextStyle.copyWith(fontSize: 12)),
-              ],
-            ),
+            Text("Donation Details", style: kMainTitleBoldTextStyle),
           ],
         ),
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Information",
-                  style: kSubHeadingTextStyle,
-                ),
-                Container(
-                  height: 80,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Funds",
+                    style: kSubHeadingTextStyle,
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 8,
-                ),
-                Text(
-                  "Payment history",
-                  style: kSubHeadingTextStyle,
-                ),
-                Expanded(
-                  child: FutureBuilder<List<DonationModel>>(
-                    future: getDonations(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        if (donations.isEmpty) {
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 80,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          "Total fund raised: \₹ ${widget.donationModel.totalFundRaised}",
+                          style: kSubHeadingTextStyle.copyWith(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                      Text("Goal: \₹ ${widget.donationModel.amountRequired}",
+                          style: kSubHeadingTextStyle.copyWith(
+                              fontSize: 18, fontWeight: FontWeight.w900)),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 60,
+                  ),
+                  Text(
+                    "Information",
+                    style: kSubHeadingTextStyle,
+                  ),
+                  Container(
+                    height: 80,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 8,
+                  ),
+                  Text(
+                    "Payment history",
+                    style: kSubHeadingTextStyle,
+                  ),
+                  Expanded(
+                    child: FutureBuilder<List<DonationModel>>(
+                      future: getDonations(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (donations.isEmpty) {
+                            return Center(
+                              child: Text("No donations yet"),
+                            );
+                          } else {
+                            return ListView.builder(
+                              itemCount: donations.length,
+                              itemBuilder: (context, index) {
+                                return PaymentCard(
+                                  fund: donations[index].amount.toString(),
+                                  donator: donations[index].userid,
+                                  time: donations[index].time,
+                                );
+                              },
+                            );
+                          }
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Center(
-                            child: Text("No donations yet"),
+                            child: CircularProgressIndicator(),
                           );
                         } else {
-                          return ListView.builder(
-                            itemCount: donations.length,
-                            itemBuilder: (context, index) {
-                              return PaymentCard(
-                                fund: donations[index].amount.toString(),
-                                donator: donations[index].userid,
-                                time: donations[index].time,
-                              );
-                            },
-                          );
+                          return Text("error while getting donation campaigns");
                         }
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return Text("error while getting donation campaigns");
-                      }
-                    },
+                      },
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 4,
-                ),
-                Container(
-                  height: 50,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (FirebaseAuth.instance.currentUser != null) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EnterAndPayDonationScreen(
-                                  donationCampaignModel: widget.donationModel)),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Please login to donate"),
-                          ),
-                        );
-
-                        Navigator.push(
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 80,
+                  ),
+                  Container(
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (FirebaseAuth.instance.currentUser != null) {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF877FFA), // Your desired color
-                      shape: ContinuousRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+                                builder: (context) => EnterAndPayDonationScreen(
+                                    donationCampaignModel:
+                                        widget.donationModel)),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Please login to donate"),
+                            ),
+                          );
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary:
+                            TealCustomButtonlightColor, // Your desired color
+                        shape: ContinuousRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        // fixedSize: Size.fromHeight(58), // Your desired height
                       ),
-                      // fixedSize: Size.fromHeight(58), // Your desired height
-                    ),
-                    child: Text(
-                      "Donate",
-                      style: kButtonBigTextStyle.copyWith(color: Colors.white),
+                      child: Text(
+                        "Donate",
+                        style:
+                            kButtonBigTextStyle.copyWith(color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-              ]),
+                ]),
+          ),
         ),
       ),
     );

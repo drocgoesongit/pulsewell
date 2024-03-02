@@ -43,7 +43,7 @@ class _ServicesListScreenState extends State<ServicesListScreen> {
           },
         ),
         title: Center(
-          child: Text("All Services", style: kSubHeadingTextStyle),
+          child: Text("All Doctors", style: kMainTitleBoldTextStyle),
         ),
       ),
       body: FutureBuilder<List<DoctorModel>>(

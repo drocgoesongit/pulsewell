@@ -52,9 +52,7 @@ class _DonationScreenState extends State<DonationScreen> {
             Navigator.pop(context);
           },
         ),
-        title: Center(
-          child: Text("Donations", style: kSubHeadingTextStyle),
-        ),
+        title: Text("Donations", style: kMainTitleBoldTextStyle),
       ),
       body: SingleChildScrollView(
           padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20),

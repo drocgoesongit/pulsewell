@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: Icon(
                 Icons.bar_chart_rounded,
-                color: Colors.black,
+                color: TealThemeCustomColor,
               ),
               title: Text(
                 'Appointments',
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: Icon(
                 Icons.monitor_heart_outlined,
-                color: Colors.black,
+                color: TealThemeCustomColor,
               ),
               title: Text(
                 'Donations',
@@ -123,8 +123,24 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: Icon(
+                Icons.person_add_alt_1_outlined,
+                color: TealThemeCustomColor,
+              ),
+              title: Text(
+                'Add Doctors',
+                style: kSubHeadingTextStyle,
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddNewDoctorScreen()));
+              },
+            ),
+            ListTile(
+              leading: Icon(
                 Icons.add_circle_outline_rounded,
-                color: Colors.black,
+                color: TealThemeCustomColor,
               ),
               title: Text(
                 'Add Donations',
@@ -140,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: Icon(
                 Icons.chat_outlined,
-                color: Colors.black,
+                color: TealThemeCustomColor,
               ),
               title: Text(
                 'Chats',
@@ -153,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: Icon(
                 Icons.logout_rounded,
-                color: Colors.black,
+                color: TealThemeCustomColor,
               ),
               title: Text(
                 'Log out',

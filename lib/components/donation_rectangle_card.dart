@@ -108,41 +108,54 @@ class DonationCard extends StatelessWidget {
                                     fontSize: 14,
                                     height: 1.1),
                               ),
-                              Text(
-                                fund,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: kSmallParaTextStyle.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14,
-                                    height: 1.1),
-                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: '₹ ', // Rupee symbol
+                                      style: kSmallParaTextStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: fund,
+                                      // maxLines: 2,
+                                      style: kSmallParaTextStyle.copyWith(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 14,
+                                        height: 1.1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
-                          ),
-                          SizedBox(
-                            height: 5,
                           ),
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Time left",
-                            style: kSmallParaTextStyle.copyWith(
-                                fontWeight: FontWeight.bold, fontSize: 12),
-                          ),
-                          SizedBox(
-                            width: 2,
-                          ),
-                          Text(
-                            time,
-                            style: kSmallParaTextStyle.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: Colors.redAccent),
-                          ),
-                        ],
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Time left",
+                              style: kSmallParaTextStyle.copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 10),
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            Text(
+                              time,
+                              style: kSmallParaTextStyle.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 10,
+                                  color: Colors.redAccent),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -183,21 +196,21 @@ class PaymentCard extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 13),
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Image on the extreme left
               Container(
-                  width: 80,
-                  height: 80,
+                  width: 60,
+                  height: 60,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
                     Icons.person,
                     size: 50,
-                    color: primaryBlueCustomColor,
+                    color: TealDarkCustomColor,
                   )),
               SizedBox(
                 width: 10,
@@ -207,54 +220,69 @@ class PaymentCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          donator,
-                          style: kSmallParaTextStyle.copyWith(
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Fund raised: ",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: kSmallParaTextStyle.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14,
-                                  height: 1.1),
-                            ),
-                            Text(
-                              fund,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: kSmallParaTextStyle.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14,
-                                  height: 1.1),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text(
-                            time,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            donator,
                             style: kSmallParaTextStyle.copyWith(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                                color: Colors.redAccent),
+                                fontWeight: FontWeight.w300),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Fund raised: ",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: kSmallParaTextStyle.copyWith(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                    height: 1.1),
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: '₹', // Rupee symbol
+                                      style: kSmallParaTextStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: fund,
+                                      style: kSmallParaTextStyle.copyWith(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 16,
+                                        height: 1.1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              time,
+                              style: kSmallParaTextStyle.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  color: Colors.redAccent),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

@@ -54,7 +54,7 @@ class _ServicesDetailScreenState extends State<ServicesDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Book Appointment", style: kSubHeadingTextStyle),
+        title: Text("Book Appointment", style: kMainTitleBoldTextStyle),
       ),
       body: SingleChildScrollView(
         child: Padding(

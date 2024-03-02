@@ -153,9 +153,18 @@ class _NewDonationCampaignScreenState extends State<NewDonationCampaignScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: primaryBlueSoftenCustomColor,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
           "New Donation Campaign",
-          style: kSubHeadingTextStyle,
+          style: kMainTitleBoldTextStyle,
         ),
       ),
       body: SingleChildScrollView(
@@ -164,144 +173,310 @@ class _NewDonationCampaignScreenState extends State<NewDonationCampaignScreen> {
           child: Form(
             key: _formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFormField(
-                  controller: _patientNameController,
-                  decoration: InputDecoration(labelText: 'Patient Name'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter patient name';
-                    }
-                    return null;
-                  },
+                ClipPath(
+                  clipper: ShapeBorderClipper(
+                    shape: ContinuousRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        side: BorderSide(
+                          color: softGrayStrokeCustomColor,
+                          width: 2,
+                        )),
+                  ),
+                  child: TextFormField(
+                    controller: _patientNameController,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: TealLightCustomColor,
+                      labelStyle: kSmallParaTextStyle,
+                      labelText: 'Patient Name',
+                      border: InputBorder.none, // Remove the border
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter patient name';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  controller: _descriptionController,
-                  decoration:
-                      InputDecoration(labelText: 'Description of Condition'),
-                  maxLines: null,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter description';
-                    }
-                    return null;
-                  },
+                ClipPath(
+                  clipper: ShapeBorderClipper(
+                    shape: ContinuousRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        side: BorderSide(
+                          color: softGrayStrokeCustomColor,
+                          width: 2,
+                        )),
+                  ),
+                  child: TextFormField(
+                    controller: _descriptionController,
+                    decoration: InputDecoration(
+                      labelText: 'Description of Condition',
+                      labelStyle: kSmallParaTextStyle,
+                      filled: true,
+                      fillColor: TealLightCustomColor,
+                      border: InputBorder.none,
+                    ),
+                    maxLines: null,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter description';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  controller: _diseaseController,
-                  decoration: InputDecoration(labelText: 'Disease'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter disease';
-                    }
-                    return null;
-                  },
+                ClipPath(
+                  clipper: ShapeBorderClipper(
+                    shape: ContinuousRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        side: BorderSide(
+                          color: softGrayStrokeCustomColor,
+                          width: 2,
+                        )),
+                  ),
+                  child: TextFormField(
+                    controller: _diseaseController,
+                    decoration: InputDecoration(
+                      labelText: 'Disease',
+                      labelStyle: kSmallParaTextStyle,
+                      filled: true,
+                      fillColor: TealLightCustomColor,
+                      border: InputBorder.none,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter disease';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  controller: _deadlineController,
-                  decoration: InputDecoration(labelText: 'Deadline'),
-                  onTap: () => _selectDate(context),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select deadline';
-                    }
-                    return null;
-                  },
+                ClipPath(
+                  clipper: ShapeBorderClipper(
+                    shape: ContinuousRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        side: BorderSide(
+                          color: softGrayStrokeCustomColor,
+                          width: 2,
+                        )),
+                  ),
+                  child: TextFormField(
+                    controller: _deadlineController,
+                    decoration: InputDecoration(
+                      labelText: 'Deadline',
+                      labelStyle: kSmallParaTextStyle,
+                      filled: true,
+                      fillColor: TealLightCustomColor,
+                      border: InputBorder.none,
+                    ),
+                    onTap: () => _selectDate(context),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please select deadline';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  controller: _amountRequiredController,
-                  decoration: InputDecoration(labelText: 'Amount Required'),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter amount required';
-                    }
-                    if (int.tryParse(value) == null) {
-                      return 'Please enter a valid number';
-                    }
-                    return null;
-                  },
+                ClipPath(
+                  clipper: ShapeBorderClipper(
+                    shape: ContinuousRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        side: BorderSide(
+                          color: softGrayStrokeCustomColor,
+                          width: 2,
+                        )),
+                  ),
+                  child: TextFormField(
+                    controller: _amountRequiredController,
+                    decoration: InputDecoration(
+                      labelText: 'Amount Required',
+                      labelStyle: kSmallParaTextStyle,
+                      filled: true,
+                      fillColor: TealLightCustomColor,
+                      border: InputBorder.none,
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter amount required';
+                      }
+                      if (int.tryParse(value) == null) {
+                        return 'Please enter a valid number';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  controller: _consultingDoctorController,
-                  decoration:
-                      InputDecoration(labelText: 'Consulting Doctor Name'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter consulting doctor name';
-                    }
-                    return null;
-                  },
+                ClipPath(
+                  clipper: ShapeBorderClipper(
+                    shape: ContinuousRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        side: BorderSide(
+                          color: softGrayStrokeCustomColor,
+                          width: 2,
+                        )),
+                  ),
+                  child: TextFormField(
+                    controller: _consultingDoctorController,
+                    decoration: InputDecoration(
+                      labelText: 'Consulting Doctor Name',
+                      labelStyle: kSmallParaTextStyle,
+                      filled: true,
+                      fillColor: TealLightCustomColor,
+                      border: InputBorder.none,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter consulting doctor name';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 SizedBox(height: 16),
-                TextFormField(
-                  controller: _hospitalNameController,
-                  decoration: InputDecoration(labelText: 'Hospital Name'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter hospital name';
-                    }
-                    return null;
-                  },
+                ClipPath(
+                  clipper: ShapeBorderClipper(
+                    shape: ContinuousRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(30)),
+                        side: BorderSide(
+                          color: softGrayStrokeCustomColor,
+                          width: 2,
+                        )),
+                  ),
+                  child: TextFormField(
+                    controller: _hospitalNameController,
+                    decoration: InputDecoration(
+                      labelText: 'Hospital Name',
+                      labelStyle: kSmallParaTextStyle,
+                      filled: true,
+                      fillColor: TealLightCustomColor,
+                      border: InputBorder.none,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter hospital name';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
                 SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    if (kIsWeb) {
-                      AdminServiceViewModel()
-                          .pickMultipleImagesWeb(context)
-                          .then((value) {
-                        setState(() {
-                          _prescriptionImageFilesWeb.addAll(value);
+                Container(
+                  height: 40,
+                  // width: 160,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (kIsWeb) {
+                        AdminServiceViewModel()
+                            .pickMultipleImagesWeb(context)
+                            .then((value) {
+                          setState(() {
+                            _prescriptionImageFilesWeb.addAll(value);
+                          });
                         });
-                      });
-                    } else {
-                      AdminServiceViewModel()
-                          .pickMultipleImagesMobile(context)
-                          .then((value) {
-                        setState(() {
-                          _prescriptionImagePath
-                              .addAll(value.map((e) => e.path).toList());
+                      } else {
+                        AdminServiceViewModel()
+                            .pickMultipleImagesMobile(context)
+                            .then((value) {
+                          setState(() {
+                            _prescriptionImagePath
+                                .addAll(value.map((e) => e.path).toList());
+                          });
                         });
-                      });
-                    }
-                  },
-                  child: Text('Add Prescription Images'),
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: TealCustomButtonlightColor, // Your desired color
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      // fixedSize: Size.fromHeight(58), // Your desired height
+                    ),
+                    child: Text(
+                      'Add Prescription Images',
+                      style: kSmallParaTextStyle.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    if (kIsWeb) {
-                      AdminServiceViewModel()
-                          .pickMultipleImagesWeb(context)
-                          .then((value) {
-                        setState(() {
-                          _patientImageFilesWeb.addAll(value);
+                Container(
+                  height: 40,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (kIsWeb) {
+                        AdminServiceViewModel()
+                            .pickMultipleImagesWeb(context)
+                            .then((value) {
+                          setState(() {
+                            _patientImageFilesWeb.addAll(value);
+                          });
                         });
-                      });
-                    } else {
-                      AdminServiceViewModel()
-                          .pickMultipleImagesMobile(context)
-                          .then((value) {
-                        setState(() {
-                          _patientImagePath
-                              .addAll(value.map((e) => e.path).toList());
+                      } else {
+                        AdminServiceViewModel()
+                            .pickMultipleImagesMobile(context)
+                            .then((value) {
+                          setState(() {
+                            _patientImagePath
+                                .addAll(value.map((e) => e.path).toList());
+                          });
                         });
-                      });
-                    }
-                  },
-                  child: Text('Add Patient Image'),
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      primary: TealCustomButtonlightColor, // Your desired color
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      // fixedSize: Size.fromHeight(58), // Your desired height
+                    ),
+                    child: Text(
+                      'Add Patient Image',
+                      style: kSmallParaTextStyle.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: _isLoading ? null : _submitForm,
-                  child:
-                      _isLoading ? CircularProgressIndicator() : Text('Submit'),
+                Container(
+                  height: 50,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: _isLoading ? null : _submitForm,
+                    child: _isLoading
+                        ? CircularProgressIndicator()
+                        : Text(
+                            'Submit',
+                            style: kSmallParaTextStyle.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                    style: ElevatedButton.styleFrom(
+                      primary: TealCustomButtonlightColor, // Your desired color
+                      shape: ContinuousRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      // fixedSize: Size.fromHeight(58), // Your desired height
+                    ),
+                  ),
                 ),
               ],
             ),
