@@ -323,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   primary:
-                                      TealCustomColor, // Your desired color
+                                      TealCustomButtonlightColor, // Your desired color
                                   shape: ContinuousRectangleBorder(
                                     borderRadius: BorderRadius.circular(40),
                                   ),

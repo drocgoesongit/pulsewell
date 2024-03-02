@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pgc/constants/color_const.dart';
+
 import 'package:pgc/constants/const.dart';
 import 'package:pgc/constants/helper_class.dart';
 import 'package:pgc/constants/text_const.dart';
@@ -70,6 +71,7 @@ class _NewDonationCampaignScreenState extends State<NewDonationCampaignScreen> {
       }
 
       DonationCampaignModel campaignModel = DonationCampaignModel(
+          donationId: HelperClass.generateRandomString(),
           patientName: _patientNameController.value.text,
           patientImage: _patientImages[0],
           description: _descriptionController.value.text,
@@ -79,12 +81,15 @@ class _NewDonationCampaignScreenState extends State<NewDonationCampaignScreen> {
           prescriptionImages: _prescriptionImages,
           consultingDoctor: _consultingDoctorController.value.text,
           hospitalName: _hospitalNameController.value.text,
+          status: "active",
+          totalFundRaised: 0,
           donations: []);
 
       // Upload campaign data to Firestore
       await FirebaseFirestore.instance
           .collection(Constants.fcDonationCampaigns)
-          .add(campaignModel.toJson());
+          .doc(campaignModel.donationId)
+          .set(campaignModel.toJson());
 
       // Show success message or navigate to next screen
       showDialog(
@@ -162,33 +167,7 @@ class _NewDonationCampaignScreenState extends State<NewDonationCampaignScreen> {
               children: [
                 TextFormField(
                   controller: _patientNameController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.blue.shade50,
-                    labelStyle: kSmallParaTextStyle,
-                    labelText: 'Patient Name',
-                    border: InputBorder.none, // Remove the border
-                    // errorText: _patientNameError ? 'Please enter patient name' : null,
-                    // errorStyle: kSmallParaTextStyle.copyWith(color: Colors.red, fontSize: 12),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: softGrayStrokeCustomColor, width: 2),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: softGrayStrokeCustomColor, width: 2),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 2),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.red, width: 2),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
+                  decoration: InputDecoration(labelText: 'Patient Name'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter patient name';

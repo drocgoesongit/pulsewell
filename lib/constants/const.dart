@@ -17,4 +17,5 @@ class Constants {
 
   static const String fcDoctorNode = 'doctors';
   static const String fcDonationCampaigns = 'donationCampaigns';
+  static const String fcDonations = 'donations';
 }
